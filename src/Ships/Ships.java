@@ -1,6 +1,8 @@
 package Ships;
 
+import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.*;
 
@@ -14,7 +16,14 @@ public class Ships {
     public static Map map = new Map();
     public static Battle battle = new Battle();
 
-    public static void main(String[] args) throws FileNotFoundException{
+    public static void main(String[] args) throws FileNotFoundException, IOException{
+        
+        int event,profile = 0;
+        boolean isEqualLogin = false, isEqualPass = false;
+        Scanner LogIn,Password,readChoice,inLogin,inPassword,read;
+        String loggingLogin="",loggingPass="",registrationLogin="",registrationPass="",loginChange,passwordChange;
+        PrintWriter save;
+        File readFile;
         
         System.out.println("Witamy w asystencie BattleShips! \n\n MENU");
         System.out.println(" 1 - Rejestracja ");
@@ -23,8 +32,6 @@ public class Ships {
         System.out.println(" 4 - Wróć do gry ");
         System.out.println(" 5 - Obejrzyj poprzednie gry ");
         System.out.println(" 6 - Profil uzytkownika ");
-        
-        int event,profile = 0;
         
         
         Scanner odczytWybor = new Scanner(System.in);
@@ -49,8 +56,54 @@ public class Ships {
                 zapis.close();
                 
                 break;
-            case 2 : 
+            case 2 : //Logowanie
                 System.out.println("Logowanie");
+                
+                //Pobranie danych do logowania
+                LogIn = new Scanner(System.in);
+                Password = new Scanner(System.in);
+                System.out.println("Podaj login i haslo aby sie zalogować : ");
+                loggingLogin = LogIn.nextLine();
+                loggingPass = LogIn.nextLine();
+                
+                //Odczytanie danych z pliku logowania
+                
+                readFile = new File("dane_logowania.txt");
+                read = new Scanner(readFile);
+                while(read.hasNextLine())
+                {
+                registrationLogin+=read.nextLine();
+                registrationPass+=read.nextLine();
+                }
+                
+                     //TESTY
+                
+                /*System.out.println("Login logowania : " + loggingLogin);
+                System.out.println("Haslo logowania : " + loggingPass);
+                System.out.println("Login z rejestracji : " + registrationLogin);     
+                System.out.println("Haslo z rejestracji : " + registrationPass);*/
+                
+                //Porównanie wprowadzonych danych do logowania
+                
+                
+                
+                isEqualLogin = loggingLogin.equals(registrationLogin);
+                isEqualPass = loggingPass.equals(registrationPass);
+                
+                //System.out.println(isEqualLogin);
+                //System.out.println(isEqualPass);
+                
+                if(isEqualLogin == true && isEqualPass == true)
+                {
+                    System.out.println("Zalogowanie przebiegło pomyślnie !");
+                    
+                }
+                else    
+                {
+                    System.out.println("Niepoprawny login lub hasło ! Wprowadź poprawne dane");
+                    
+                }
+                
                 break;
             case 3 : 
                 System.out.println("Nowa gra");
@@ -81,21 +134,21 @@ public class Ships {
                 System.out.println("Zmiana danych logowania - wcisnij 7");
                 System.out.println("Statystyki - wcisnij 8");
                 
-                Scanner readChoice = new Scanner(System.in);
+                readChoice = new Scanner(System.in);
                 System.out.println("\nWybierz opcję : ");
                 profile = readChoice.nextInt();
                 
                 switch(profile){
                     case 7 : 
-                        Scanner inLogin = new Scanner(System.in);
+                        inLogin = new Scanner(System.in);
                         System.out.println("Podaj login : ");
-                        String loginChange = inLogin.nextLine();
+                        loginChange = inLogin.nextLine();
           
-                        Scanner inPassword = new Scanner(System.in);
+                        inPassword = new Scanner(System.in);
                         System.out.println("Podaj Haslo : ");
-                        String passwordChange = inPassword.nextLine();
+                        passwordChange = inPassword.nextLine();
           
-                        PrintWriter save = new PrintWriter("dane_logowania.txt");
+                        save = new PrintWriter("dane_logowania.txt");
                         save.println(loginChange);
                         save.println(passwordChange);
                         save.close();
