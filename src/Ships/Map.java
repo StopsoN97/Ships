@@ -1,10 +1,10 @@
-package statki;
+package Ships;
 
-import static statki.Statki.grid;
-import static statki.Statki.numCols;
+import static Ships.Ships.grid;
+import static Ships.Ships.numCols;
 
 
-public class Plansza {
+public class Map {
 
     public void createOceanMap() {
         //First section of Ocean Map
